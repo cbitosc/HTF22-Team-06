@@ -111,7 +111,8 @@ app.post('/check', function (req, res) {
 
 app.get('/student-home', function (req, res) {
     if (req.session.loggedin && req.session.type == "student") {
-    res.sendFile(__dirname + '/templates/landing.html');
+    res.render(__dirname + '/templates/landing.ejs',{rollno:req.session.username});
+    // res.render(__dirname + "/teacher_class2.ejs", { uname: uname });
     }
     else
     {
