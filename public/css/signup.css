@@ -5,11 +5,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url(peachbg.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    font-family: sans-serif;
+    background-color: #e0fbfc;
 }
 
 .title {
@@ -21,46 +17,50 @@ body {
     margin: 0;
     padding: 0;
     font-size: 36px;
-    font-family: 'Joan', serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 .container {
-    width: 70%;
-    height: 550px;
+    width: 60%;
+    height: 600px;
     background: white;
     margin: 0 auto;
-    border: 2px solid white;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, .5);
+    border: 2px solid rgb(255, 255, 255);
+    box-shadow: 0 15px 40px #293241;
+    border-radius: 25px;
 }
 
 .container .left {
     float: left;
-    width: 57%;
-    height: 550px;
+    width: 56%;
+    height: 600px;
     background: url(/images/5293.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
     box-sizing: border-box;
+    border-radius: 25px;
 }
 
 .container .right {
     float: right;
-    width: 43%;
-    height: 550px;
+    width: 44%;
+    height: 600px;
     box-sizing: border-box;
+    border-left: 1px solid black;
 }
 
 .box h1 {
-    font-weight: 500;
+    font-weight: bold;
     text-transform: uppercase;
+    color: #293241;
 }
 
 .box {
     top: 50%;
     left: 50%;
     text-align: center;
-    padding: 120px;
+    padding: 15%;
 }
 
 .box input[type="text"],
@@ -70,7 +70,7 @@ body {
     display: block;
     margin: 20px auto;
     text-align: center;
-    border: 2px solid rgb(117, 46, 41);
+    border: 2px solid #293241;
     padding: 14px 10px;
     width: 200px;
     outline: none;
@@ -80,7 +80,7 @@ body {
 
 .box input[type="text"]:focus,
 .box input[type="password"]:focus {
-    border-color: coral;
+    border-color: #98c1d9;
     width: 250px;
 
 }
@@ -91,7 +91,7 @@ body {
     display: block;
     margin: 20px auto;
     text-align: center;
-    border: 2px solid coral;
+    border: 2px solid #98c1d9;
     padding: 14px 40px;
     outline: none;
     border-radius: 24px;
@@ -100,5 +100,5 @@ body {
 }
 
 .box input[type="submit"]:hover {
-    background: coral;
+    background: #98c1d9;
 }
