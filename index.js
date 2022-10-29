@@ -180,11 +180,11 @@ app.post("/registration", function (req, res) {
 app.get('/register', function (req, res) {
     res.sendFile(__dirname + '/templates/signup.html');
 });
-app.get('/course-clicked', function (req, res) {
-    if (req.session.loggedin && req.session.type == "student") {
-        res.render(__dirname + "/templates/course.html", {})
-    }
-});
+// app.get('/course-clicked', function (req, res) {
+//     if (req.session.loggedin && req.session.type == "student") {
+//         res.render(__dirname + "/templates/course.html", {})
+//     }
+// });
 
 app.get('/student-home/:course_id', function (req, res) {
     if (req.session.loggedin && req.session.type == "student") {
@@ -193,18 +193,27 @@ app.get('/student-home/:course_id', function (req, res) {
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
             var dbo = db.db(databasename);
-            var myobj = { username: rollno, password: password, type: "student", email: email, branch: d[dept], year: year }
-            dbo.collection("course").find(query2).toArray(function (err, result2) {
+            var myobj = { course_id: req.params.course_id };
+            dbo.collection("course").find(myobj).toArray(function (err, result) {
                 if (err) throw err;
-                console.log(result2);
-                res.render(__dirname + "/templates/landing.ejs", { data: result2, rollno: req.session.username });
+                // console.log(result);
+                var myobj2 = { username: result[0].teacher_id };
+                dbo.collection("login").find(myobj2).toArray(function (err, result2) {
+                    if (err) throw err;
+
+                    // console.log(result2);
+                    res.render(__dirname + "/templates/course.ejs",
+                     { teacher_name: result2[0].display_name, course_title: result[0].course_title,
+                         course_description: result[0].course_description });
+                    db.close;
+                });
                 db.close;
             });
         });
 
         // console.log(result[0].username);
         // console.log(result[0].password);
-        res.sendFile(__dirname + "/templates/course.html");
+        // res.sendFile(__dirname + "/templates/course.html");
     }
     // else
     // {
