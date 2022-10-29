@@ -86,10 +86,17 @@ app.post('/check', function (req, res) {
                 else {
                     if (err) throw err;
                     else {
-                        if (result[0].password == pword) {
+                        if (result[0].password == pword && result[0].type == "student") {
                             req.session.loggedin = true;
                             req.session.username = uname;
-                            res.redirect("/home");
+                            req.session.type = "student";
+                            res.redirect("/student-home");
+                        }
+                        if (result[0].password == pword && result[0].type == "teacher") {
+                            req.session.loggedin = true;
+                            req.session.username = uname;
+                            req.session.type = "teacher";
+                            res.redirect("/teacher-home");
                         }
                     }
                 }
@@ -102,8 +109,24 @@ app.post('/check', function (req, res) {
     }
 });
 
-app.get('/home', function (req, res) {
-    res.sendFile(__dirname + '/home.html');
+app.get('/student-home', function (req, res) {
+    if (req.session.loggedin && req.session.type == "student") {
+    res.sendFile(__dirname + '/student_home.html');
+    }
+    else
+    {
+        res.sendFile(__dirname + '/index.html');
+    }
+});
+
+app.get('/teacher-home', function (req, res) {
+    if (req.session.loggedin && req.session.type == "teacher") {
+        res.sendFile(__dirname + '/teacher_home.html');
+    }
+    else
+    {
+        res.sendFile(__dirname + '/index.html');
+    }
 });
 
 app.listen(3000, function () {
