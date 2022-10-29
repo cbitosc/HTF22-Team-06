@@ -200,11 +200,15 @@ app.get('/student-home/:course_id', function (req, res) {
                 var myobj2 = { username: result[0].teacher_id };
                 dbo.collection("login").find(myobj2).toArray(function (err, result2) {
                     if (err) throw err;
-
-                    // console.log(result2);
-                    res.render(__dirname + "/templates/course.ejs",
-                     { teacher_name: result2[0].display_name, course_title: result[0].course_title,
-                         course_description: result[0].course_description });
+                    console.log(result2);
+                    var myobj3 = {course_id:req.params.course_id};
+                    dbo.collection("assignment_list").find(myobj3).toArray(function (err, result3) {
+                        if (err) throw err;
+                        res.render(__dirname + "/templates/course.ejs",
+                         { teacher_name: result2[0].display_name, course_title: result[0].course_title,
+                             course_description: result[0].course_description,result3:result3 });
+                        db.close;
+                    });
                     db.close;
                 });
                 db.close;

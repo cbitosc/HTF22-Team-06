@@ -13,7 +13,15 @@
     <h4><%=course_description%></h4>
     <p>enhances skills bla bla</p>
     <h4>Assignments</h4>
-    <p>display all assignments uploaded by teacher</p>
-
+    <!-- <p>display all assignments uploaded by teacher</p> -->
+    <table>
+        <% for(var i=0; i < result3.length; i++) { %>
+           <tr>
+             <td><%= result3[i].assignment_title %></td>
+             <td><%= result3[i].assignment_description %></td>
+             <td><%= result3[i].deadline %></td>
+           </tr>
+        <% } %>
+        </table>
 </body>
 </html>
