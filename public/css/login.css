@@ -102,9 +102,12 @@ body {
 .box input[type="submit"]:hover {
     background: #98c1d9;
 }
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> fb1a2141830be68d236383819ad08dcaedf5887f
 a:link {
     text-decoration: none;
     color: #293241;
