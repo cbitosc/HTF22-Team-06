@@ -111,53 +111,79 @@ app.post('/check', function (req, res) {
 
 app.get('/student-home', function (req, res) {
     if (req.session.loggedin && req.session.type == "student") {
-    res.render(__dirname + '/templates/landing.ejs',{rollno:req.session.username});
-    // res.render(__dirname + "/teacher_class2.ejs", { uname: uname });
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db(databasename);
+            var query={username:"160120733050"};
+            dbo.collection("login").find(query).toArray(function(err,result){
+                if (err) throw err;
+                // console.log(result);
+                var branch=result[0].branch;
+                var year=result[0].year;   
+                var query2={branch:branch,year:year};            
+                dbo.collection("course").find(query2).toArray(function(err,result2){
+                    if (err) throw err;
+                    console.log(result2);
+                    res.render(__dirname+"/templates/landing.ejs",{data:result2, rollno: req.session.username });
+                    db.close;
+                });
+
+                // console.log(result[0].username);
+                // console.log(result[0].password);
+                db.close;
+            });
+            // res.render(__dirname + '/templates/landing.ejs', { rollno: req.session.username });
+            // res.render(__dirname + "/teacher_class2.ejs", { uname: uname });
+        });
     }
-    else
-    {
+    else {
         res.sendFile(__dirname + '/templates/login.html');
     }
 });
 
-app.get("/registration",function(req,res){
-    res.sendFile(__dirname+'/templates/register.html');
-  });
-  
-  //after successful registration
-  app.post("/registration",function(req,res){
-    var rollno=req.body.rollnumber;
-    var email=req.body.email;
-    var username=req.body.username;
-    var password=req.body.password;
-    var cpassword=req.body.cpassword;
-    var str_roll=rollno.toString();
-    if (password!=cpassword || str_roll.length!=12){
-      console.log("Incorrect password");
+app.get("/registration", function (req, res) {
+    res.sendFile(__dirname + '/templates/register.html');
+});
+
+//after successful registration
+app.post("/registration", function (req, res) {
+    var rollno = req.body.rollnumber;
+    var email = req.body.email;
+    var username = req.body.username;
+    var password = req.body.password;
+    var cpassword = req.body.cpassword;
+    var str_roll = rollno.toString();
+    if (password != cpassword || str_roll.length != 12) {
+        console.log("Incorrect password");
     }
     //console.log(rollno>160100000000)
-  
-    if(password==cpassword){
-    var year="20"+rollno[4]+rollno[5];
-    var dept=rollno[6]+rollno[7]+rollno[8];
-    d={"733":"CSE","734":"EEE","736":"Mechanical"}
-  
-    MongoClient.connect(url, function (err, db) {
-        if (err) throw err;
-        var dbo = db.db(databasename);
-        var myobj={username:rollno,password:password,type:"student",email:email,branch:d[dept],year:year}
-        dbo.collection("login").insertOne(myobj,function(err,res){
-          if (err) throw err;
-          console.log("1 document inserted")
+
+    if (password == cpassword) {
+        var year = "20" + rollno[4] + rollno[5];
+        var dept = rollno[6] + rollno[7] + rollno[8];
+        d = { "733": "CSE", "734": "EEE", "736": "Mechanical" }
+
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db(databasename);
+            var myobj = { username: rollno, password: password, type: "student", email: email, branch: d[dept], year: year }
+            dbo.collection("login").insertOne(myobj, function (err, res) {
+                if (err) throw err;
+                console.log("1 document inserted")
+            });
         });
-      });
     }
-  
-    res.sendFile(__dirname+ "/templates/login.html");
-  
-  });
+
+    res.sendFile(__dirname + "/templates/login.html");
+
+});
 app.get('/register', function (req, res) {
     res.sendFile(__dirname + '/templates/signup.html');
+});
+app.get('/course-clicked', function (req, res) {
+    if (req.session.loggedin && req.session.type == "student") {
+        res.render(__dirname + "/templates/course.html", {})
+    }
 });
 
 // app.get('/teacher-home', function (req, res) {
