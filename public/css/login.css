@@ -102,3 +102,23 @@ body {
 .box input[type="submit"]:hover {
     background: #98c1d9;
 }
+
+
+
+a:link {
+    text-decoration: none;
+    color: #293241;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #98c1d9;
+}
+
+a:active {
+    text-decoration: underline;
+}
