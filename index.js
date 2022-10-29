@@ -114,17 +114,17 @@ app.get('/student-home', function (req, res) {
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
             var dbo = db.db(databasename);
-            var query={username:"160120733050"};
-            dbo.collection("login").find(query).toArray(function(err,result){
+            var query = { username: "160120733050" };
+            dbo.collection("login").find(query).toArray(function (err, result) {
                 if (err) throw err;
                 // console.log(result);
-                var branch=result[0].branch;
-                var year=result[0].year;   
-                var query2={branch:branch,year:year};            
-                dbo.collection("course").find(query2).toArray(function(err,result2){
+                var branch = result[0].branch;
+                var year = result[0].year;
+                var query2 = { branch: branch, year: year };
+                dbo.collection("course").find(query2).toArray(function (err, result2) {
                     if (err) throw err;
                     console.log(result2);
-                    res.render(__dirname+"/templates/landing.ejs",{data:result2, rollno: req.session.username });
+                    res.render(__dirname + "/templates/landing.ejs", { data: result2, rollno: req.session.username });
                     db.close;
                 });
 
@@ -184,6 +184,32 @@ app.get('/course-clicked', function (req, res) {
     if (req.session.loggedin && req.session.type == "student") {
         res.render(__dirname + "/templates/course.html", {})
     }
+});
+
+app.get('/student-home/:course_id', function (req, res) {
+    if (req.session.loggedin && req.session.type == "student") {
+        // res.sendFile(__dirname + '/teacher_home.html');
+        // console.log(req.params.course_id);
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db(databasename);
+            var myobj = { username: rollno, password: password, type: "student", email: email, branch: d[dept], year: year }
+            dbo.collection("course").find(query2).toArray(function (err, result2) {
+                if (err) throw err;
+                console.log(result2);
+                res.render(__dirname + "/templates/landing.ejs", { data: result2, rollno: req.session.username });
+                db.close;
+            });
+        });
+
+        // console.log(result[0].username);
+        // console.log(result[0].password);
+        res.sendFile(__dirname + "/templates/course.html");
+    }
+    // else
+    // {
+    //     res.sendFile(__dirname + '/templates/login.html');
+    // }
 });
 
 // app.get('/teacher-home', function (req, res) {
