@@ -63,7 +63,7 @@ MongoClient.connect(url, function (err, db) {
 });
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/templates/login.html');
 });
 
 app.post('/check', function (req, res) {
@@ -81,7 +81,7 @@ app.post('/check', function (req, res) {
                 // console.log(result[0].username);
                 // console.log(result[0].password);
                 if (result.length == 0) {
-                    res.sendFile(__dirname + '/index.html');
+                    res.sendFile(__dirname + '/templates/login.html');
                 }
                 else {
                     if (err) throw err;
@@ -105,17 +105,17 @@ app.post('/check', function (req, res) {
         });
     }
     else {
-        res.sendFile(__dirname + '/index.html');
+        res.sendFile(__dirname + '/templates/login.html');
     }
 });
 
 app.get('/student-home', function (req, res) {
     if (req.session.loggedin && req.session.type == "student") {
-    res.sendFile(__dirname + '/student_home.html');
+    res.sendFile(__dirname + '/templates/landing.html');
     }
     else
     {
-        res.sendFile(__dirname + '/index.html');
+        res.sendFile(__dirname + '/templates/login.html');
     }
 });
 
@@ -125,7 +125,7 @@ app.get('/teacher-home', function (req, res) {
     }
     else
     {
-        res.sendFile(__dirname + '/index.html');
+        res.sendFile(__dirname + '/templates/login.html');
     }
 });
 
