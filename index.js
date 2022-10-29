@@ -201,12 +201,14 @@ app.get('/student-home/:course_id', function (req, res) {
                 dbo.collection("login").find(myobj2).toArray(function (err, result2) {
                     if (err) throw err;
                     console.log(result2);
-                    var myobj3 = {course_id:req.params.course_id};
+                    var myobj3 = { course_id: req.params.course_id };
                     dbo.collection("assignment_list").find(myobj3).toArray(function (err, result3) {
                         if (err) throw err;
                         res.render(__dirname + "/templates/course.ejs",
-                         { teacher_name: result2[0].display_name, course_title: result[0].course_title,
-                             course_description: result[0].course_description,result3:result3 });
+                            {
+                                teacher_name: result2[0].display_name, course_title: result[0].course_title,
+                                course_description: result[0].course_description, result3: result3
+                            });
                         db.close;
                     });
                     db.close;
@@ -223,6 +225,39 @@ app.get('/student-home/:course_id', function (req, res) {
     // {
     //     res.sendFile(__dirname + '/templates/login.html');
     // }
+});
+
+app.get('/student-home/assignment/:assignment_id', function (req, res) {
+    if (req.session.loggedin && req.session.type == "student") {
+        var ass_id = req.params.assignment_id;
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db(databasename);
+            var myobj = { assignment_id: ass_id };
+            dbo.collection("assignment_list").find(myobj).toArray(function (err, result) {
+                if (err) throw err;
+                console.log(result);
+                var cid = result[0].course_id;
+                var myobj1 = { course_id :cid };
+                dbo.collection("course").find(myobj1).toArray(function (err, result2) {
+                    if (err) throw err;
+                    console.log(result2);
+                    var myobj2 = { student_id:req.session.username,assignment_id:ass_id};
+                    dbo.collection("assignment_submission").find(myobj2).toArray(function (err, result3) {
+                        if (err) throw err;
+                    res.render(__dirname + "/templates/assignment_submission.ejs",{course_title: result2[0].course_title,
+                        assignment_description: result[0].assignment_description,deadline:result[0].deadline,status:result3[0].status}
+                        );
+                    });
+                    db.close;
+                });
+                db.close;
+            });
+        });
+    }
+    else {
+        res.sendFile(__dirname + '/templates/login.html');
+    }
 });
 
 // app.get('/teacher-home', function (req, res) {

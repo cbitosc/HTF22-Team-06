@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,21 +8,35 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/course.css">
 </head>
+
 <body>
-    <h2><%=course_title%></h2>
-    <h3>Taught by: <%=teacher_name%></h3>
-    <h4><%=course_description%></h4>
+    <h2>
+        <%=course_title%>
+    </h2>
+    <h3>Taught by: <%=teacher_name%>
+    </h3>
+    <h4>
+        <%=course_description%>
+    </h4>
     <p>enhances skills bla bla</p>
     <h4>Assignments</h4>
     <!-- <p>display all assignments uploaded by teacher</p> -->
     <table>
         <% for(var i=0; i < result3.length; i++) { %>
-           <tr>
-             <td><%= result3[i].assignment_title %></td>
-             <td><%= result3[i].assignment_description %></td>
-             <td><%= result3[i].deadline %></td>
-           </tr>
-        <% } %>
-        </table>
+            <tr>
+                <td>
+                    <a href="/student-home/assignment/<%=result3[i].assignment_id%>"><%= result3[i].assignment_title %></a>
+                    
+                    </td>
+                    <td>
+                        <%= result3[i].assignment_description %>
+                    </td>
+                    <td>
+                        <%= result3[i].deadline %>
+                    </td>
+                </tr>
+            <% } %>
+    </table>
 </body>
+
 </html>
