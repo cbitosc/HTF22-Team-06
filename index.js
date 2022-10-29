@@ -119,15 +119,55 @@ app.get('/student-home', function (req, res) {
     }
 });
 
-app.get('/teacher-home', function (req, res) {
-    if (req.session.loggedin && req.session.type == "teacher") {
-        res.sendFile(__dirname + '/teacher_home.html');
+app.get("/registration",function(req,res){
+    res.sendFile(__dirname+'/templates/register.html');
+  });
+  
+  //after successful registration
+  app.post("/registration",function(req,res){
+    var rollno=req.body.rollnumber;
+    var email=req.body.email;
+    var username=req.body.username;
+    var password=req.body.password;
+    var cpassword=req.body.cpassword;
+    var str_roll=rollno.toString();
+    if (password!=cpassword || str_roll.length!=12){
+      console.log("Incorrect password");
     }
-    else
-    {
-        res.sendFile(__dirname + '/templates/login.html');
+    //console.log(rollno>160100000000)
+  
+    if(password==cpassword){
+    var year="20"+rollno[4]+rollno[5];
+    var dept=rollno[6]+rollno[7]+rollno[8];
+    d={"733":"CSE","734":"EEE","736":"Mechanical"}
+  
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db(databasename);
+        var myobj={username:rollno,password:password,type:"student",email:email,branch:d[dept],year:year}
+        dbo.collection("login").insertOne(myobj,function(err,res){
+          if (err) throw err;
+          console.log("1 document inserted")
+        });
+      });
     }
+  
+    res.sendFile(__dirname+ "/templates/login.html");
+  
+  });
+app.get('/register', function (req, res) {
+    res.sendFile(__dirname + '/templates/signup.html');
 });
+
+// app.get('/teacher-home', function (req, res) {
+//     if (req.session.loggedin && req.session.type == "teacher") {
+//         res.sendFile(__dirname + '/teacher_home.html');
+//     }
+//     else
+//     {
+//         res.sendFile(__dirname + '/templates/login.html');
+//     }
+// });
 
 app.listen(3000, function () {
     console.log('app listening on port 3000!');
