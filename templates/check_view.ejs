@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h3><%= assignment_title %></h3>
+  <p><%= assignment_description %></p>
+  <span>by</span><span><i><%= rollno %></i></span><br>
+  <b>content:</b>
+  <span><%=content%></span>
+  <form action="/check-view/<%=assignment_id%>/<%=rollno%>" method="post">
+    <label for="grade">Grade: </label>
+    <input type="number" name="grade" id="grade"><br>
+    <label for="grade">Feedback: </label>
+    <textarea name="feedback" id="feedback" cols="30" rows="10"></textarea><br>
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>

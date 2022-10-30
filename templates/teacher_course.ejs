@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="/css/Tcourse.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500&family=Smooch&display=swap');
+        input{
+            border: white;
+        }
+        input:hover{
+            background-color: #EE6C4D;
+            border: #EE6C4D;
+            color: white;
+        }
     </style>
 </head>
 
@@ -28,6 +36,7 @@
     <hr style="text-align:left;margin-left:0">
 
     <div class="sect">
+        <h2>Course Description</h2>
         <h3<%= course_description %>
             </h3>
             <p>A data structure is a named location that can be used to store and organize data. And, an algorithm is a
@@ -38,9 +47,9 @@
 
     <div class="sect">
         <h2>Assignments</h2>
-        <p>Display all assignments</p>
+        <p>Displays all assignments uploaded by you</p>
         <form action="/assignment_new/<%=course_id%>">
-            <input class="addA" type="submit" value="add assignments" />
+            <input class="addA" type="submit" value="Upload New Assignment" />
         </form>
         <table>
             <% for(var i=0; i < result3.length; i++) { %>
