@@ -250,11 +250,11 @@ footer .quick-links {
 }
 
 .container.left .date {
-  right: -180px;
+  right: -200px;
 }
 
 .container.right .date {
-  left: -180px;
+  left: -200px;
 }
 
 .container .icon {
