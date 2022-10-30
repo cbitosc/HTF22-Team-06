@@ -45,12 +45,13 @@ body {
     margin-bottom: 30px;
 }
 
-table tr:nth-child(n) {
+table tr:nth-child(n+2) {
     background-color: #98c1d9;
     width: 100px;
     height: max-content;
     color: white;
     border-radius: 15px;
+    text-align: center;
 }
 
 table td:nth-child(n) {
@@ -60,4 +61,13 @@ table td:nth-child(n) {
 a {
     text-decoration: none;
     color: #293241;
+}
+
+table .heads {
+    color: black;
+    background-color: #98c1d9;
+    width: 100px;
+    height: max-content;
+    font-weight: bold;
+    text-align: center;
 }
