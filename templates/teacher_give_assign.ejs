@@ -9,22 +9,30 @@
 <body>
     <h1>Assignments</h1>
     <p>question of the assignment</p>
-    <form action="">
-        <label for="cid">enter the course id here</label>
-        <input type="text" name="cid" id="cid">
+    <form action="/assignment_new/<%=course_id%>" method="post">
+        <label for="cid">enter the assignment id here</label>
+        <input type="text" name="aid" id="aid"
+        <% if (data && data.assignment_id) { %>
+            value="<%=data.assignment_id%>"
+        <% } %>
+        >
         <br><br>
         <label for="title">enter the title here</label>
-        <input type="text" name="title" id="title">
+        <input type="text" name="title" id="title"
+        <% if (data && data.assignment_title) { %>
+            value="<%= data.assignment_title %>"
+        <% } %>
+        >
         <br><br>
         <label for="description">enter the description here</label>
-        <textarea name="description" id="description" rows="4" cols="50">
-        </textarea>
+        <textarea name="description" id="description" rows="4" cols="50"><% if (data && data.assignment_description) { %><%=data.assignment_description%><% } %></textarea>
         <br><br>
         <label for="w3review">Upload File:</label>
     <input type="file">
     <br><br>
     <label for="w3review">Set Deadline:</label>
-    <input type="date">
+    <input type="date" name="deadline1">
+    <input type="time" name="deadline2">
     <br><br>
     <!-- <label for="w3review">Comments:</label>
     <textarea id="w3review" name="w3review" rows="4" cols="50">
