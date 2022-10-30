@@ -6,9 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/course.css">
+    <link rel="stylesheet" href="/css/Tcourse.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500&family=Smooch&display=swap');
+        input{
+            border: white;
+        }
+        input:hover{
+            background-color: #EE6C4D;
+            border: #EE6C4D;
+            color: white;
+        }
     </style>
 </head>
 
@@ -20,7 +28,7 @@
             </h1>
         </div>
         <div class="child">
-            <img src="https://i.insider.com/622b83078f97ab0018750f24?width=700" alt="" class="imgg">
+            <img src="https://www.courseduck.com/global/images/abdul_bari.jpg" alt="" class="imgg">
             <h5>Taught by: <%= teacher_name %>
             </h5>
         </div>
@@ -28,6 +36,7 @@
     <hr style="text-align:left;margin-left:0">
 
     <div class="sect">
+        <h2>Course Description</h2>
         <h3<%= course_description %>
             </h3>
             <p>A data structure is a named location that can be used to store and organize data. And, an algorithm is a
@@ -38,15 +47,15 @@
 
     <div class="sect">
         <h2>Assignments</h2>
-        <p>Display all assignments</p>
+        <p>Displays all assignments uploaded by you</p>
         <form action="/assignment_new/<%=course_id%>">
-            <input class="addA" type="submit" value="add assignments" />
+            <input class="addA" type="submit" value="Upload New Assignment" />
         </form>
         <table>
             <% for(var i=0; i < result3.length; i++) { %>
                 <div class="blocks">
                     <tr>
-                        <td>
+                        <td style="background-color: #98c1d9;">
                             <a href="/teacher-home/assignment/<%=result3[i].assignment_id%>">
                                 <%= result3[i].assignment_title %>
                             </a>
