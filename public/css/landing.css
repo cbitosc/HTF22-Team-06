@@ -261,7 +261,7 @@ footer .quick-links {
   text-align: center;
   font-size: 14px;
   font-weight: bold;
-  color: #006E51;
+  color: #293241;
   text-transform: uppercase;
   letter-spacing: 1px;
   z-index: 1;
@@ -299,12 +299,15 @@ footer .quick-links {
   left: 56px;
 }
 
+
 .container .content {
   padding: 30px 90px 30px 30px;
   background: #F6D155;
   position: relative;
   border-radius: 0 500px 500px 0;
 }
+
+
 
 .container.right .content {
   padding: 30px 30px 30px 90px;
@@ -387,4 +390,8 @@ footer .quick-links {
 
 .card-title:hover {
   text-decoration: none;
+}
+
+.timeline:nth-child(2) .content {
+  background: red;
 }
