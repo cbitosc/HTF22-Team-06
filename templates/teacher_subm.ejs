@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,38 +8,49 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/teacher_subm.css">
 </head>
+
 <body>
     <div class="container">
         <h2>List of Submissions made by Students</small></h2>
         <br>
         <ul class="responsive-table">
-          <li class="table-header">
-            <div class="col col-1">A_id</div>
-            <div class="col col-2">ROLL NO</div>
-            <div class="col col-3">FILE </div>
-            <div class="col col-4">GRADE</div>
-            <div class="col col-5">REVIEW</div>
-            <div class="col col-6">MAX GRADE</div>
-            <div class="col col-7">Check</div>
+            <li class="table-header">
+                <div class="col col-1">A_id</div>
+                <div class="col col-2">ROLL NO</div>
+                <div class="col col-4">GRADE</div>
+                <div class="col col-5">REVIEW</div>
+                <div class="col col-6">MAX GRADE</div>
+                <div class="col col-7">Check</div>
 
 
 
-          </li>
-          <li class="table-row">
-            <% for(var i=0; i < result.length; i++) { %>
-            <div class="col col-1" data-label="" ><%= result[i].assignment_id %></div>
-            <div class="col col-2" data-label="Customer Name"><%= result[i].student_id %></div>
-            <div class="col col-3" data-label="Amount"><%= result[i].file_path%></div>
-            <div class="col col-4" data-label="Payment Status"><%=result[i].grade %></div>
-            <div class="col col-5" data-label="Amount"><%= result[i].status%></div>
-            <div class="col col-6" data-label="Amount"><%= result[i].max_grade%></div>
-              <div class="col col-6" data-label="Amount"><a href="#">Check</a></div>
-
-            <% } %>
-          </li>
+            </li>
+            <li class="table-row">
+                <% for(var i=0; i < result.length; i++) { %>
+                    <br>
+                    <div class="col col-1" data-label="">
+                        <%= result[i].assignment_id %>
+                    </div>
+                    <div class="col col-2" data-label="student_id">
+                        <%= result[i].student_id %>
+                    </div>
+                    <div class="col col-4" data-label="grade">
+                        <%=result[i].grade %>
+                    </div>
+                    <div class="col col-5" data-label="status">
+                        <%= result[i].status%>
+                    </div>
+                    <div class="col col-6" data-label="max_grade">
+                        <%= result[i].max_grade%>
+                    </div>
+                    <div class="col col-6" data-label="Amount"><a href="#">Check</a></div>
+                    <br>
+                    <% } %>
+            </li>
 
         </ul>
-      </div>
+    </div>
 
 </body>
+
 </html>

@@ -1,8 +1,7 @@
 const nodemailer = require('nodemailer');
-var cron = require('node-cron');
 const schedule = require('node-schedule');
 
-const date = new Date(2022, 9, 29, 23, 55, 0);
+const date = new Date(2022, 9, 30, 12, 44, 0);
 
 
 let mailTransporter = nodemailer.createTransport({
