@@ -31,6 +31,9 @@
     <div class="sect">
         <h3>Assignments</h3>
         <p>display all assignments uploaded by teacher</p>
+        <div>
+            <a href="/assignment_new">add assignments</a>
+        </div>
         <table>
             <% for(var i=0; i < result3.length; i++) { %>
                 <tr>
@@ -45,7 +48,7 @@
                             <%= result3[i].deadline %>
                         </td>
                         <td>
-                            <button>edit</button>>
+                            <a href="/teacher-home/<%=result3[i].course_id%>/<%=result3[i].assignment_id%>/edit">edit</a>
                         </td>
                     </tr>
                 <% } %>
