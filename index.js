@@ -653,6 +653,20 @@ app.post('/assign-submission/:assignment_id', function (req, res) {
     }
 });
 
+app.get("/teacher-home/assignment/:assignment_id",function(req,res){
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db(databasename);
+        dbo.collection("assignment_submission").find().toArray(function(err,result){
+          if (err) throw err;
+          console.log(result);
+          res.render(__dirname+'/templates/teacher_subm.ejs',{result:result})
+        });
+  
+    });
+  
+  
+  });
 
 
 // app.get('/teacher-home', function (req, res) {
