@@ -38,9 +38,9 @@
                         </h2>
                         <h2>Feedback: </h2>
                         <label for="upload">Upload your assignment here: </label><br>
-                        <form class="formS" action="#" method="post">
-                            <input type="file" name="upload" placeholder="upload here"><br>
-                            <input type="submit" name="">
+                        <form class="formS" action="/assign-submission/<%= assignment_id %>" method="post">
+                            <textarea name="submission" id="submission" cols="100" rows="8"></textarea><br><br>
+                            <input type="submit" name="" value ="submit">
                         </form>
                     </div>
                 </div>

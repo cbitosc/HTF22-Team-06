@@ -346,6 +346,7 @@ app.get("/student-home/assignment/:assignment_id", function (req, res) {
                                             assignment_description: result[0].assignment_description,
                                             deadline: result[0].deadline,
                                             status: result3[0].status,
+                                            assignment_id: req.params.assignment_id
                                         }
                                     )
                                 })
@@ -601,6 +602,25 @@ app.get("/email", function (req, res) {
       });
     });
   });
+
+app.get('/assign-submission/:assignment_id', function (req, res) {
+    if (req.session.loggedin && req.session.type == "student") {
+        var sub = req.body.submission;
+        var myobj = {assignment_id : req.params.assignment_id,student_id:req.session.username}
+        dbo.collection("assignment_submission").updateOne(myobj,{$set: { content: sub }}, function (err, _res) {
+            if (err) throw err
+            console.log("1 document inserted")
+            res.sendFile(__dirname + '/teacher_home.html');
+            db.close
+        })
+    }
+    else
+    {
+        res.sendFile(__dirname + '/templates/login.html');
+    }
+});
+
+
 
 // app.get('/teacher-home', function (req, res) {
 //     if (req.session.loggedin && req.session.type == "teacher") {
