@@ -1,29 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-    </style>
-    <link rel="stylesheet" href="/css/assignment_landing.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="/public/css/assign.css">
 </head>
-
 <body>
-    <h1>Assignment</h1>
-    <h2>Teacher name: </h2>
-    <h2>Subject name: </h2>
-    <h2>Description: </h2>
-    <h2>Assignment Status: </h2>
-    <h2>Deadline</h2>
-    <label for="upload">Upload your assignment here: </label> <br>
-    <form class="formS" action="#" method="post">
-        <input type="file" name="upload" placeholder="upload here">
-        <input type="submit" value="upload" name="submit">
-    </form>
+    <div class="background">
+        <div class="container">
+          <div class="screen">
+            <div class="screen-header">
+              <div class="screen-header-left">
+                <div class="screen-header-button close"></div>
+                <div class="screen-header-button maximize"></div>
+                <div class="screen-header-button minimize"></div>
+              </div>
+              <div class="screen-header-right">
+                <div class="screen-header-ellipsis"></div>
+                <div class="screen-header-ellipsis"></div>
+                <div class="screen-header-ellipsis"></div>
+              </div>
+            </div>
+            <div class="screen-body">
+                <div class="main" style="width: 950px;height:600px;padding:5% ">
+                    <h1>Assignment</h1>
+                    <h2>Teacher name: </h2>
+                    <h2>Subject name: </h2>
+                    <h2>Description: </h2>
+                    <h2>Deadline</h2>
+                    <h2>Time remaining: </h2>
+                    <h2>Assignment Status: </h2>
+                    <h2>Grading Status: </h2>
+                    <h2>Feedback: </h2>
+                    <label for="upload">Upload your assignment here: </label> <br>
+                    <form class="formS" action="#" method="post">
+                        <input type="file" name="upload" placeholder="upload here">
+                        <input type="submit" value="upload" name="submit">
+                    </form>
+                </div>
+            </div>
+          </div>
+      </div>
+      
 </body>
-
 </html>
