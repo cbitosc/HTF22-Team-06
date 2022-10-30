@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/landing.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500&family=Smooch&display=swap');
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+
+<body>
+  <div class="nav-bar">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#" style="color:#EE6C4D;">CBIT LMS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse ull" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item lii">
+              <a class="aa" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item lii">
+              <a class="aa" href="#">Deadlines</a>
+            </li>
+            <li class="nav-item lii">
+              <a class="aa" href="#">Courses</a>
+            </li>
+            <li class="nav-item lii">
+              <a class="aa" href="#">Previous Courses</a>
+            </li>
+            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div class="hero-container">
+    <div class="container-fluid ">
+      <div class="row d-flex">
+        <div class="col align-middle">
+          <div class="px-2 py-2">
+            <img
+              src="https://img.freepik.com/free-vector/happy-freelancer-with-computer-home-young-man-sitting-armchair-using-laptop-chatting-online-smiling-vector-illustration-distance-work-online-learning-freelance_74855-8401.jpg?w=900&t=st=1667037491~exp=1667038091~hmac=7c71ea8afc8f3cc8065c5ccc05d105e3c8a7b76f0133016cb210a7882dc19611"
+              class="img-fluid" alt="...">
+          </div>
+        </div>
+        <div class="col">
+          <div class="px-5 py-5">
+            <div class='wel'>
+              <h1>Welcome Back <%=rollno%>
+              </h1>
+              <p>Have a great day!!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- main container -->
+    <div class="main-container">
+      <div class="container-fluid">
+        ...
+      </div>
+    </div>
+
+    <!--  Card container  -->
+    <div class="card-container bg-black">
+      <div class="container-fluid px-3 py-3">
+        <div class="row center mx-4 my-4 text-white">
+          <h2 style="padding-left:4%">Courses</h2>
+        </div>
+        <div class="row mb-5">
+          <% for(var i=0; i < data.length; i++) { %>
+            <div class="col">
+              <a href="/teacher-home/<%=data[i].course_id%>">
+                <div class="card card_style">
+                  <img src="https://img.freepik.com/free-vector/work-time-concept-illustration_114360-1074.jpg"
+                    class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <%=data[i].course_title%>
+                    </h5>
+                    <p class="card-title">
+                      <%=data[i].course_description%>
+                    </p>
+
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <% } %>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+
+    <!--  banner container  -->
+    <div class="banner-container mt-5 mb-5">
+      <div class="container-fluid px-4 py-4">
+        <div class="card bg-black text-white ">
+          <h5 class="card-header">Deadlines</h5>
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn org-btn">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div class="footer-container foot">
+      <div class="container-fluid">
+        <footer>
+          <div class="">
+            <div class="row">
+              <div class="col-md-4 footer-column">
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <span class="footer-title">Product</span>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Product 1</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Product 2</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Plans & Prices</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Frequently asked questions</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-4 footer-column">
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <span class="footer-title">Company</span>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">About us</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Job postings</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">News and articles</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-4 footer-column">
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <span class="footer-title">Contact & Support</span>
+                  </li>
+                  <li class="nav-item">
+                    <span class="nav-link"><i class="fas fa-phone"></i>+47 45 80 80 80</span>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-comments"></i>Live chat</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-envelope"></i>Contact us</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-star"></i>Give feedback</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="text-center"><i class="fas fa-ellipsis-h"></i></div>
+
+            <div class="row text-center">
+              <div class="col-md-4 box">
+                <span class="copyright quick-links">Copyright &copy; Your Website
+                  <script>document.write(new Date().getFullYear())</script>
+                </span>
+              </div>
+              <div class="col-md-4 box">
+                <ul class="list-inline social-buttons">
+                  <li class="list-inline-item">
+                    <a href="#">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#">
+                      <i class="fab fa-linkedin-in"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-4 box">
+                <ul class="list-inline quick-links">
+                  <li class="list-inline-item">
+                    <a href="#">Privacy Policy</a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a href="#">Terms of Use</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+      </div>
+      </footer>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
