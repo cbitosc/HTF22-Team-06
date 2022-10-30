@@ -34,7 +34,7 @@ input {
 
 .screen {
   position: relative;
-  background: #3e3e3e;
+  background: #3d5a80;
   border-radius: 15px;
 }
 
@@ -223,7 +223,7 @@ h2 {
 }
 
 input[type="submit"] {
-  margin-top: 35px;
+  margin-top: 5px;
   width: 100px;
   height: 45px;
   border-radius: 3px;
