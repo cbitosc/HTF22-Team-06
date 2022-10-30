@@ -303,10 +303,10 @@ app.get("/student-home/:course_id", function (req, res) {
         // console.log(result[0].password);
         // res.sendFile(__dirname + "/templates/course.html");
     }
-    // else
-    // {
-    //     res.sendFile(__dirname + '/templates/login.html');
-    // }
+    else
+    {
+        res.sendFile(__dirname + '/templates/E404.html');
+    }
 })
 
 app.get("/student-home/assignment/:assignment_id", function (req, res) {
@@ -397,10 +397,10 @@ app.get("/teacher-home/:course_id", function (req, res) {
         // console.log(result[0].password);
         // res.sendFile(__dirname + "/templates/course.html");
     }
-    // else
-    // {
-    //     res.sendFile(__dirname + '/templates/login.html');
-    // }
+    else
+    {
+        res.sendFile(__dirname + '/templates/login.html');
+    }
 })
 
 app.get("/teacher-home/:course_id/:assignment_id/edit", function (req, res) {
@@ -414,10 +414,7 @@ app.get("/teacher-home/:course_id/:assignment_id/edit", function (req, res) {
                 assignment_id: req.params.assignment_id,
                 course_id: req.params.course_id,
             }
-            dbo
-                .collection("assignment_list")
-                .find(myobj)
-                .toArray(function (err, result) {
+            dbo.collection("assignment_list").find(myobj).toArray(function (err, result) {
                     if (err) throw err
                     console.log(result)
                     res.render(__dirname + "/templates/teacher_give_assign.ejs", {
@@ -427,6 +424,10 @@ app.get("/teacher-home/:course_id/:assignment_id/edit", function (req, res) {
                     db.close
                 })
         })
+    }
+    else
+    {
+        res.sendFile(__dirname + '/templates/login.html');
     }
 })
 
@@ -453,6 +454,10 @@ app.post("/teacher-home/:course_id/:assignment_id/edit", function (req, res) {
         // console.log(req.body)
         // res.send(req.body)
     }
+    else
+    {
+        res.sendFile(__dirname + '/templates/login.html');
+    }
 })
 
 app.get("/assignment_new/:course_id", function (req, res) {
@@ -477,6 +482,10 @@ app.get("/assignment_new/:course_id", function (req, res) {
                     db.close
                 })
         })
+    }
+    else
+    {
+        res.sendFile(__dirname + '/templates/login.html');
     }
 })
 
@@ -513,6 +522,10 @@ app.post("/assignment_new/:course_id", function (req, res) {
 //         res.sendFile(__dirname + '/templates/login.html');
 //     }
 // });
+
+app.use((req, res, next) => {
+    res.status(404).sendFile(__dirname+"/templates/E404.html")
+})
 
 app.listen(3000, function () {
     console.log("app listening on port 3000!")
