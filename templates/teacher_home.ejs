@@ -83,16 +83,16 @@
         </div>
         <div class="row mb-5">
           <% for(var i=0; i < data.length; i++) { %>
-            <div class="col">
+            <div class="col" style="padding-left:100px";>
               <a href="/teacher-home/<%=data[i].course_id%>">
                 <div class="card card_style">
                   <img src="https://img.freepik.com/free-vector/work-time-concept-illustration_114360-1074.jpg"
                     class="card-img-top" alt="..." style="width: 20%;">
                   <div class="card-body">
-                    <h5 class="card-title">
+                    <h5 class="card-title" style="color:#293241">
                       <%=data[i].course_title%>
                     </h5>
-                    <p class="card-title">
+                    <p class="card-title" style="color:#293241">
                       <%=data[i].course_description%>
                     </p>
 
@@ -102,11 +102,6 @@
             </div>
 
             <% } %>
-
-
-
-
-
         </div>
       </div>
     </div>
