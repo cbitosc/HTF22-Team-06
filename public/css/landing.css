@@ -1,8 +1,18 @@
+*{
+  font-family: 'Poppins', sans-serif;
+}
+
 .lii{
     font-weight: 700;
 }
 .aa{
-    color:#fec503;
+    color:#293241;
+    padding: 20px;
+    margin-top: 0px;
+}
+.aa:hover{
+  text-decoration: none;
+  color: #EE6C4D;
 }
 .ull{
     margin-left:30%;
@@ -12,7 +22,10 @@
 }
 .card_style{
     height: 100%;
-    width: 80%;
+    width: 70%;
+}
+.cardd{
+  padding-left:100px;
 }
 
 aside {
