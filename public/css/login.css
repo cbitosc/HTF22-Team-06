@@ -34,7 +34,7 @@ body {
     float: left;
     width: 56%;
     height: 600px;
-    background: url(/public/images/5293.jpg);
+    background: url(/images/5293.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -101,4 +101,22 @@ body {
 
 .box input[type="submit"]:hover {
     background: #98c1d9;
+}
+
+a:link {
+    text-decoration: none;
+    color: #293241;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #98c1d9;
+}
+
+a:active {
+    text-decoration: underline;
 }

@@ -34,7 +34,7 @@ body {
     float: left;
     width: 56%;
     height: 600px;
-    background: url(/public/images/5293.jpg);
+    background: url(/images/5293.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -63,6 +63,7 @@ body {
     padding: 15%;
 }
 
+.box input[type="email"],
 .box input[type="text"],
 .box input[type="password"] {
     border: 0;
@@ -77,7 +78,7 @@ body {
     border-radius: 24px;
     transition: 0.25s;
 }
-
+.box input[type="email"]:focus,
 .box input[type="text"]:focus,
 .box input[type="password"]:focus {
     border-color: #98c1d9;

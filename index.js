@@ -63,7 +63,7 @@ MongoClient.connect(url, function (err, db) {
 });
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/templates/login.html');
 });
 
 app.post('/check', function (req, res) {
@@ -81,15 +81,22 @@ app.post('/check', function (req, res) {
                 // console.log(result[0].username);
                 // console.log(result[0].password);
                 if (result.length == 0) {
-                    res.sendFile(__dirname + '/index.html');
+                    res.sendFile(__dirname + '/templates/login.html');
                 }
                 else {
                     if (err) throw err;
                     else {
-                        if (result[0].password == pword) {
+                        if (result[0].password == pword && result[0].type == "student") {
                             req.session.loggedin = true;
                             req.session.username = uname;
-                            res.redirect("/home");
+                            req.session.type = "student";
+                            res.redirect("/student-home");
+                        }
+                        if (result[0].password == pword && result[0].type == "teacher") {
+                            req.session.loggedin = true;
+                            req.session.username = uname;
+                            req.session.type = "teacher";
+                            res.redirect("/teacher-home");
                         }
                     }
                 }
@@ -98,13 +105,170 @@ app.post('/check', function (req, res) {
         });
     }
     else {
-        res.sendFile(__dirname + '/index.html');
+        res.sendFile(__dirname + '/templates/login.html');
     }
 });
 
-app.get('/home', function (req, res) {
-    res.sendFile(__dirname + '/home.html');
+app.get('/student-home', function (req, res) {
+    if (req.session.loggedin && req.session.type == "student") {
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db(databasename);
+            var query = { username: "160120733050" };
+            dbo.collection("login").find(query).toArray(function (err, result) {
+                if (err) throw err;
+                // console.log(result);
+                var branch = result[0].branch;
+                var year = result[0].year;
+                var query2 = { branch: branch, year: year };
+                dbo.collection("course").find(query2).toArray(function (err, result2) {
+                    if (err) throw err;
+                    console.log(result2);
+                    res.render(__dirname + "/templates/landing.ejs", { data: result2, rollno: req.session.username });
+                    db.close;
+                });
+
+                // console.log(result[0].username);
+                // console.log(result[0].password);
+                db.close;
+            });
+            // res.render(__dirname + '/templates/landing.ejs', { rollno: req.session.username });
+            // res.render(__dirname + "/teacher_class2.ejs", { uname: uname });
+        });
+    }
+    else {
+        res.sendFile(__dirname + '/templates/login.html');
+    }
 });
+
+app.get("/registration", function (req, res) {
+    res.sendFile(__dirname + '/templates/register.html');
+});
+
+//after successful registration
+app.post("/registration", function (req, res) {
+    var rollno = req.body.rollnumber;
+    var email = req.body.email;
+    var username = req.body.username;
+    var password = req.body.password;
+    var cpassword = req.body.cpassword;
+    var str_roll = rollno.toString();
+    if (password != cpassword || str_roll.length != 12) {
+        console.log("Incorrect password");
+    }
+    //console.log(rollno>160100000000)
+
+    if (password == cpassword) {
+        var year = "20" + rollno[4] + rollno[5];
+        var dept = rollno[6] + rollno[7] + rollno[8];
+        d = { "733": "CSE", "734": "EEE", "736": "Mechanical" }
+
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db(databasename);
+            var myobj = { username: rollno, password: password, type: "student", email: email, branch: d[dept], year: year }
+            dbo.collection("login").insertOne(myobj, function (err, res) {
+                if (err) throw err;
+                console.log("1 document inserted")
+            });
+        });
+    }
+
+    res.sendFile(__dirname + "/templates/login.html");
+
+});
+app.get('/register', function (req, res) {
+    res.sendFile(__dirname + '/templates/signup.html');
+});
+// app.get('/course-clicked', function (req, res) {
+//     if (req.session.loggedin && req.session.type == "student") {
+//         res.render(__dirname + "/templates/course.html", {})
+//     }
+// });
+
+app.get('/student-home/:course_id', function (req, res) {
+    if (req.session.loggedin && req.session.type == "student") {
+        // res.sendFile(__dirname + '/teacher_home.html');
+        // console.log(req.params.course_id);
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db(databasename);
+            var myobj = { course_id: req.params.course_id };
+            dbo.collection("course").find(myobj).toArray(function (err, result) {
+                if (err) throw err;
+                // console.log(result);
+                var myobj2 = { username: result[0].teacher_id };
+                dbo.collection("login").find(myobj2).toArray(function (err, result2) {
+                    if (err) throw err;
+                    console.log(result2);
+                    var myobj3 = { course_id: req.params.course_id };
+                    dbo.collection("assignment_list").find(myobj3).toArray(function (err, result3) {
+                        if (err) throw err;
+                        res.render(__dirname + "/templates/course.ejs",
+                            {
+                                teacher_name: result2[0].display_name, course_title: result[0].course_title,
+                                course_description: result[0].course_description, result3: result3
+                            });
+                        db.close;
+                    });
+                    db.close;
+                });
+                db.close;
+            });
+        });
+
+        // console.log(result[0].username);
+        // console.log(result[0].password);
+        // res.sendFile(__dirname + "/templates/course.html");
+    }
+    // else
+    // {
+    //     res.sendFile(__dirname + '/templates/login.html');
+    // }
+});
+
+app.get('/student-home/assignment/:assignment_id', function (req, res) {
+    if (req.session.loggedin && req.session.type == "student") {
+        var ass_id = req.params.assignment_id;
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db(databasename);
+            var myobj = { assignment_id: ass_id };
+            dbo.collection("assignment_list").find(myobj).toArray(function (err, result) {
+                if (err) throw err;
+                console.log(result);
+                var cid = result[0].course_id;
+                var myobj1 = { course_id :cid };
+                dbo.collection("course").find(myobj1).toArray(function (err, result2) {
+                    if (err) throw err;
+                    console.log(result2);
+                    var myobj2 = { student_id:req.session.username,assignment_id:ass_id};
+                    dbo.collection("assignment_submission").find(myobj2).toArray(function (err, result3) {
+                        if (err) throw err;
+                    res.render(__dirname + "/templates/assignment_submission.ejs",{course_title: result2[0].course_title,
+                        assignment_description: result[0].assignment_description,deadline:result[0].deadline,status:result3[0].status}
+                        );
+                    });
+                    db.close;
+                });
+                db.close;
+            });
+        });
+    }
+    else {
+        res.sendFile(__dirname + '/templates/login.html');
+    }
+});
+
+// app.get('/teacher-home', function (req, res) {
+//     if (req.session.loggedin && req.session.type == "teacher") {
+//         res.sendFile(__dirname + '/teacher_home.html');
+//     }
+//     else
+//     {
+//         res.sendFile(__dirname + '/templates/login.html');
+//     }
+// });
 
 app.listen(3000, function () {
     console.log('app listening on port 3000!');
