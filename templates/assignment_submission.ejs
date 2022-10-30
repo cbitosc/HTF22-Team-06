@@ -10,17 +10,43 @@
 </head>
 
 <body>
+    <div class="background">
+        <div class="container">
+            <div class="screen">
+                <div class="screen-header">
+                    <div class="screen-header-left">
+                        <div class="screen-header-button close"></div>
+                        <div class="screen-header-button maximize"></div>
+                        <div class="screen-header-button minimize"></div>
+                    </div>
+                    <div class="screen-header-right">
+                        <div class="screen-header-ellipsis"></div>
+                        <div class="screen-header-ellipsis"></div>
+                        <div class="screen-header-ellipsis"></div>
+                    </div>
+                </div>
+                <div class="screen-body">
+                    <div class="main" style="width: 950px;height:580px;padding:5% ">
+                        <h1>Assignment</h1>
+                        <h2>Subject name: <%=course_title%>
+                        </h2>
+                        <h2>Description: <%=assignment_description%>
+                        </h2>
+                        <h2>Assignment Status: <%=status%>
+                        </h2>
+                        <h2>Deadline : <%=deadline%>
+                        </h2>
+                        <h2>Feedback: </h2>
+                        <label for="upload">Upload your assignment here: </label><br>
+                        <form class="formS" action="#" method="post">
+                            <input type="file" name="upload" placeholder="upload here"><br>
+                            <input type="submit" name="">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <h1>Assignment</h1>
-    <h2>Subject name: <%=course_title%></h2>
-    <h2>Description: <%=assignment_description%></h2>
-    <h2>Assignment Status: <%=status%></h2>
-    <h2>Deadline : <%=deadline%></h2>
-    <label for="upload">Upload your assignment here: </label><br>
-    <form class="formS" action="#" method="post">
-        <input type="file" name="upload" placeholder="upload here">
-        <input type="submit" name="">
-    </form>
 </body>
 
 </html>
