@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,37 +9,47 @@
     <link rel="stylesheet" href="/css/course.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;1,200;1,300;1,400;1,500&family=Smooch&display=swap');
-            </style>
+    </style>
 </head>
+
 <body>
     <div class="parent">
         <div class="child">
-            <h1><%= course_title %></h1>
+            <h1>
+                <%= course_title %>
+            </h1>
         </div>
         <div class="child">
             <img src="https://i.insider.com/622b83078f97ab0018750f24?width=700" alt="" class="imgg">
-            <h5>Taught by: <%= teacher_name %></h5>
+            <h5>Taught by: <%= teacher_name %>
+            </h5>
         </div>
     </div>
     <hr style="text-align:left;margin-left:0">
 
     <div class="sect">
-        <h3<%= course_description %></h3>
-        <p>enhances skills bla bla</p>
+        <h3<%= course_description %>
+            </h3>
+            <p>A data structure is a named location that can be used to store and organize data. And, an algorithm is a
+                collection of steps to solve a particular problem. Learning data structures and algorithms allow us to
+                write efficient and optimized computer programs.</p>
     </div>
     <br>
 
     <div class="sect">
-        <h3>Assignments</h3>
-        <p>display all assignments uploaded by teacher</p>
-        <div>
-            <a href="/assignment_new/<%=course_id%>">add assignments</a>
-        </div>
+        <h2>Assignments</h2>
+        <p>Display all assignments</p>
+        <form action="/assignment_new/<%=course_id%>">
+            <input class="addA" type="submit" value="add assignments" />
+        </form>
         <table>
             <% for(var i=0; i < result3.length; i++) { %>
-                <tr>
-                    <td>
-                        <a href="/teacher-home/assignment/<%=result3[i].assignment_id%>"><%= result3[i].assignment_title %></a>
+                <div class="blocks">
+                    <tr>
+                        <td>
+                            <a href="/teacher-home/assignment/<%=result3[i].assignment_id%>">
+                                <%= result3[i].assignment_title %>
+                            </a>
 
                         </td>
                         <td>
@@ -48,12 +59,15 @@
                             <%= result3[i].deadline %>
                         </td>
                         <td>
-                            <a href="/teacher-home/<%=result3[i].course_id%>/<%=result3[i].assignment_id%>/edit">edit</a>
+                            <a
+                                href="/teacher-home/<%=result3[i].course_id%>/<%=result3[i].assignment_id%>/edit">edit</a>
                         </td>
                     </tr>
+                </div>
                 <% } %>
         </table>
     </div>
 
 </body>
+
 </html>
