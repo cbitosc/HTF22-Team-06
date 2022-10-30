@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const schedule = require('node-schedule');
 
-const date = new Date(2022, 9, 30, 12, 44, 0);
+const date = new Date(2022, 9, 30, 13, 36, 0);
 
 
 let mailTransporter = nodemailer.createTransport({
@@ -14,7 +14,7 @@ let mailTransporter = nodemailer.createTransport({
 
 let mailDetails = {
 	from: 'shahbazjahan5@gmail.com',
-	to: 'mayankgujrathi@gmail.com',
+	to: 'alwalsowmika26@gmail.com',
 	subject: 'Test mail',
 	text: 'Node.js testing mail for crap'
 };
