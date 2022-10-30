@@ -13,8 +13,8 @@
         }
         .form{
             width:940px;
-            height:640px;
-            background:#e6e6e6;
+            height:740px;
+            background:#F5EFE6;
             border-radius:8px;
             box-shadow:0 0 40px -10px #000;
             margin:calc(50vh - 220px) auto;
@@ -22,9 +22,9 @@
             max-width:calc(100vw - 40px);box-sizing:border-box;font-family:'Montserrat',sans-serif;position:relative
         }
         h2{margin:10px 0;padding-bottom:10px;width:180px;color:#293241;border-bottom:3px solid #3d5a80} 
-        input{width:100%;padding:10px;box-sizing:border-box;background:none;outline:none;resize:none;border:0;font-family:'Montserrat',sans-serif;transition:all .3s;border-bottom:1px solid #bebed2} -->
-        input:focus{border-bottom:2px solid #78788c}
-        p:before{
+        .inputt{width:100%;padding:10px;box-sizing:border-box;background:none;outline:none;resize:none;border:0;font-family:'Montserrat',sans-serif;transition:all .3s;border-bottom:1px solid #bebed2} 
+        .inputt:focus{border-bottom:2px solid #78788c}
+        label:before{
             content:attr(type);
             display:block;margin:28px 0 0;
             font-size:14px;
@@ -33,35 +33,40 @@
         button{float:right;padding:8px 12px;margin:8px 0 0;font-family:'Montserrat',sans-serif;border:2px solid #3d5a80;background:0;color:#5a5a6e;cursor:pointer;transition:all .3s;}
         button:hover{background:#3d5a80;color:#fff}
         div{content:'Hi';position:absolute;bottom:-15px;right:-20px;background:#50505a;color:#fff;width:320px;padding:16px 4px 16px 0;border-radius:6px;font-size:13px;box-shadow:10px 10px 40px -14px #000}
-        span{margin:0 5px 0 15px}
+        span{
+            display:block;
+            overflow: hidden;
+        }
     </style>
 </head>
 
 <body>
     <form action="/assignment_new/<%=course_id%>" method="post" class="form">
-        <h2>Assignments</h2>
-        <label for="cid">enter the assignment id here</label>
-        <input type="text" name="aid" id="aid"
+        <h2>UPLOAD ASSIGNMENT</h2>
+        <label for="cid">Enter the Assignment Id here</label>
+        <input type="text" name="aid" id="aid" class="inputt"
         <% if (data && data.assignment_id) { %>
             value="<%=data.assignment_id%>"
         <% } %>
         >
         <br><br>
-        <label for="title">enter the title here</label>
-        <input type="text" name="title" id="title"
+        <label for="title">Enter the Assignment Title here</label>
+        <input type="text" name="title" id="title" class="inputt"
         <% if (data && data.assignment_title) { %>
             value="<%= data.assignment_title %>"
         <% } %>
         >
         <br><br>
-        <label for="description">enter the description here</label>
+        <label for="description">Enter the description here</label>
         <textarea id="w3review" name="description" id="description" rows="4" cols="50"><% if (data && data.assignment_description) { %><%=data.assignment_description%><% } %></textarea>
         <br><br>
-        <label for="w3review">Upload File:</label>
-    <input type="file">
-    <br><br>
+        <label for="w3review" style="float:left;">Upload File</label>
+        <span><input type="file" style="margin-top:28px;margin-left:14%;"></span>
+    <br>
     <label for="w3review">Set Deadline:</label>
+    <label for="">Date</label>
     <input type="date" name="deadline1">
+    <label for="">Time</label>
     <input type="time" name="deadline2">
     <br><br>
     <!-- <label for="w3review">Comments:</label>

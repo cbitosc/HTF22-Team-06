@@ -1,37 +1,3 @@
-MongoClient = require("mongodb").MongoClient
-const express = require("express")
-const mongoose = require("mongoose")
-const morgan = require("morgan")
-const bodyParser = require("body-parser")
-const path = require("path")
-const { devNull } = require("os")
-const { GridFSBucket } = require("mongodb")
-const { redirect } = require("express/lib/response")
-// const url = 'mongodb://localhost:27017/';
-const url =
-    "mongodb+srv://shahbazjahan9:shahbazjahan9@cluster0.vb8fvg4.mongodb.net/?retryWrites=true&w=majority"
-const databasename = "team6"
-const session = require("express-session")
-const { runInNewContext } = require("vm")
-const app = express()
-app.use(bodyParser.json())
-app.use(
-    bodyParser.urlencoded({
-        extended: true,
-    })
-)
-
-app.use(
-    session({
-        secret: "secret",
-        resave: true,
-        saveUninitialized: true,
-    })
-)
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(express.static(path.join(__dirname, "public")))
-
 app.get("/email", function (req, res) {
     MongoClient.connect(url, function (err, db) {
   
