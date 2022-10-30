@@ -12,6 +12,8 @@ const url =
     "mongodb+srv://shahbazjahan9:shahbazjahan9@cluster0.vb8fvg4.mongodb.net/?retryWrites=true&w=majority"
 const databasename = "team6"
 const session = require("express-session")
+const nodemailer = require('nodemailer');
+const schedule = require('node-schedule');
 const { runInNewContext } = require("vm")
 const app = express()
 app.use(bodyParser.json())
@@ -556,7 +558,6 @@ app.get("/email", function (req, res) {
                 console.log(value.getDate() == today.getDate())
                 if (value.getDate() == today.getDate() && value.getMonth == today.getMonth() && value.getYear() == today.getYear()) {
                   MongoClient.connect(url, function (err, db) {
-                    c
                     if (err) throw err;
                     //console.log("result:: ",result)
                     var dbo = db.db(databasename);
@@ -603,15 +604,47 @@ app.get("/email", function (req, res) {
     });
   });
 
-app.get('/assign-submission/:assignment_id', function (req, res) {
+app.post('/assign-submission/:assignment_id', function (req, res) {
     if (req.session.loggedin && req.session.type == "student") {
         var sub = req.body.submission;
         var myobj = {assignment_id : req.params.assignment_id,student_id:req.session.username}
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            //console.log("result:: ",result)
+            var dbo = db.db(databasename);
         dbo.collection("assignment_submission").updateOne(myobj,{$set: { content: sub }}, function (err, _res) {
             if (err) throw err
             console.log("1 document inserted")
-            res.sendFile(__dirname + '/teacher_home.html');
+            let mailTransporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'shahbazjahan5@gmail.com',
+                    pass: 'cyjtqpnysfhrikbi'
+                }
+            });
+            
+            let mailDetails = {
+                from: 'shahbazjahan5@gmail.com',
+                to: 'mayankgujrathi@gmail.com',
+                subject: 'Test mail',
+                text: 'Node.js testing mail for crap'
+            };
+            const job = schedule.scheduleJob(Date.now(), function(){
+            // cron.schedule('* * * * * *', () => {
+                mailTransporter.sendMail(mailDetails, function(err, data) {
+                    if(err) {
+                        console.log('Error Occurs');
+                        console.log(err);
+                    } else {
+                        console.log('Email sent successfully');
+                    }
+                });
+                // console.log("hello worls");
+            });
+            
+            res.sendFile(__dirname + '/templates/done.html');
             db.close
+            })
         })
     }
     else
