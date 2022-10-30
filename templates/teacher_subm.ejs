@@ -21,9 +21,6 @@
                 <div class="col col-5">REVIEW</div>
                 <div class="col col-6">MAX GRADE</div>
                 <div class="col col-7">Check</div>
-
-
-
             </li>
             <li class="table-row">
                 <% for(var i=0; i < result.length; i++) { %>
@@ -43,7 +40,7 @@
                     <div class="col col-6" data-label="max_grade">
                         <%= result[i].max_grade%>
                     </div>
-                    <div class="col col-6" data-label="Amount"><a href="#">Check</a></div>
+                    <div class="col col-6" data-label="Amount"><a href="/check-view/<%=result[i].assignment_id%>/<%=result[i].student_id%>">Check</a></div>
                     <br>
                     <% } %>
             </li>
