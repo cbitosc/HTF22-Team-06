@@ -31,10 +31,10 @@
               <a class="aa" aria-current="page" href="#">Home</a>
             </li>
             <li class="nav-item lii">
-              <a class="aa" href="#">Courses</a>
+              <a class="aa" href="#courses">Courses</a>
             </li>
             <li class="nav-item lii">
-              <a class="aa" href="#">Deadlines</a>
+              <a class="aa" href="#deadlines">Deadlines</a>
             </li>
             <li class="nav-item lii">
               <a class="aa" href="#">Previous Courses</a>
@@ -62,7 +62,7 @@
             <div class='wel'>
               <h1>Welcome Back <%=rollno%>
               </h1>
-              <p>Have a great day!!</p>
+              <p style="text-align:center;">Have a great day!!</p>
             </div>
           </div>
         </div>
@@ -79,22 +79,21 @@
     <div class="card-container bg-black">
       <div class="container-fluid px-3 py-3">
         <div class="row center mx-4 my-4 text-white">
-          <h2 style="padding-left:4%">Courses</h2>
+          <h2 style="padding-left:4%" id="courses">Courses</h2>
         </div>
-
 
         <div class="row mb-5">
           <% for(var i=0; i < data.length; i++) { %>
-            <div class="col">
+            <div class="col" style="padding-left:100px";>
               <a href="/student-home/<%=data[i].course_id%>">
                 <div class="card card_style">
                   <img src="https://img.freepik.com/free-vector/work-time-concept-illustration_114360-1074.jpg"
                     class="card-img-top" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">
+                    <h5 class="card-title" style="color:#293241">
                       <%=data[i].course_title%>
                     </h5>
-                    <p class="card-title">
+                    <p class="card-title" style="color:#293241">
                       <%=data[i].course_description%>
                     </p>
 
@@ -109,7 +108,7 @@
 
 
     <div class="row center mx-4 my-4" style="color:#293241">
-      <h2 style="padding-left:4%">Deadlines</h2>
+      <h2 style="padding-left:4%" id="deadlines">Deadlines</h2>
     </div>
 
     <div class="timeline">
