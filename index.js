@@ -11,6 +11,7 @@ const { redirect } = require('express/lib/response');
 const url = 'mongodb+srv://shahbazjahan9:shahbazjahan9@cluster0.vb8fvg4.mongodb.net/?retryWrites=true&w=majority';
 const databasename = 'team6';
 const session = require('express-session');
+const { runInNewContext } = require('vm');
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -95,6 +96,7 @@ app.post('/check', function (req, res) {
                         if (result[0].password == pword && result[0].type == "teacher") {
                             req.session.loggedin = true;
                             req.session.username = uname;
+                            req.session.display_name=result[0].display_name;
                             req.session.type = "teacher";
                             res.redirect("/teacher-home");
                         }
@@ -135,6 +137,32 @@ app.get('/student-home', function (req, res) {
             // res.render(__dirname + '/templates/landing.ejs', { rollno: req.session.username });
             // res.render(__dirname + "/teacher_class2.ejs", { uname: uname });
         });
+    }
+    else {
+        res.sendFile(__dirname + '/templates/login.html');
+    }
+});
+
+app.get('/teacher-home', function (req, res) {
+    if (req.session.loggedin && req.session.type == "teacher") {
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db(databasename);
+            // var query={username:"160120733050"};
+            // dbo.collection("login").find(query).toArray(function(err,result){
+            //     if (err) throw err;
+            //     console.log(result);
+            //     console.log(result[0].username);
+            //     console.log(result[0].password);
+            //     db.close;
+            // });
+            var query={teacher_id:req.session.username};
+            dbo.collection("course").find(query).toArray(function(err,result){
+              if (err) throw err;
+              console.log("My results: ",result);
+              res.render(__dirname + '/templates/teacher_home.ejs',{rollno:req.session.display_name,tid:req.session.username,tname:req.session.display_name,data:result});
+            });
+          });
     }
     else {
         res.sendFile(__dirname + '/templates/login.html');
@@ -259,6 +287,89 @@ app.get('/student-home/assignment/:assignment_id', function (req, res) {
         res.sendFile(__dirname + '/templates/login.html');
     }
 });
+
+app.get('/teacher-home/:course_id', function (req, res) {
+    if (req.session.loggedin && req.session.type == "teacher") {
+        // res.sendFile(__dirname + '/teacher_home.html');
+        // console.log(req.params.course_id);
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db(databasename);
+            var myobj = { course_id: req.params.course_id };
+            dbo.collection("course").find(myobj).toArray(function (err, result) {
+                if (err) throw err;
+                // console.log(result);
+                var myobj2 = { username: result[0].teacher_id };
+                dbo.collection("login").find(myobj2).toArray(function (err, result2) {
+                    if (err) throw err;
+                    console.log(result2);
+                    var myobj3 = { course_id: req.params.course_id };
+                    dbo.collection("assignment_list").find(myobj3).toArray(function (err, result3) {
+                        if (err) throw err;
+                        res.render(__dirname + "/templates/teacher_course.ejs",
+                            {
+                                teacher_name: result2[0].display_name, course_title: result[0].course_title,
+                                course_description: result[0].course_description, result3: result3
+                            });
+                        db.close;
+                    });
+                    db.close;
+                });
+                db.close;
+            });
+        });
+
+        // console.log(result[0].username);
+        // console.log(result[0].password);
+        // res.sendFile(__dirname + "/templates/course.html");
+    }
+    // else
+    // {
+    //     res.sendFile(__dirname + '/templates/login.html');
+    // }
+});
+
+app.get('/teacher-home/:course_id/:assignment_id/edit', function (req, res) {
+    if (req.session.loggedin && req.session.type == "teacher") {
+        // res.sendFile(__dirname + '/teacher_home.html');
+        // console.log(req.params.course_id);
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db(databasename);
+            var myobj = { course_id: req.params.course_id };
+            dbo.collection("course").find(myobj).toArray(function (err, result) {
+                if (err) throw err;
+                // console.log(result);
+                var myobj2 = { username: result[0].teacher_id };
+                dbo.collection("login").find(myobj2).toArray(function (err, result2) {
+                    if (err) throw err;
+                    console.log(result2);
+                    var myobj3 = { course_id: req.params.course_id };
+                    dbo.collection("assignment_list").find(myobj3).toArray(function (err, result3) {
+                        if (err) throw err;
+                        res.render(__dirname + "/templates/teacher_course.ejs",
+                            {
+                                teacher_name: result2[0].display_name, course_title: result[0].course_title,
+                                course_description: result[0].course_description, result3: result3
+                            });
+                        db.close;
+                    });
+                    db.close;
+                });
+                db.close;
+            });
+        });
+
+        // console.log(result[0].username);
+        // console.log(result[0].password);
+        // res.sendFile(__dirname + "/templates/course.html");
+    }
+    // else
+    // {
+    //     res.sendFile(__dirname + '/templates/login.html');
+    // }
+});
+
 
 // app.get('/teacher-home', function (req, res) {
 //     if (req.session.loggedin && req.session.type == "teacher") {
